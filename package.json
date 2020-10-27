@@ -1,0 +1,25 @@
+{
+  "name": "mysql-employee-tracker-hw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aeesley/mysql-employee-tracker-hw.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aeesley/mysql-employee-tracker-hw/issues"
+  },
+  "homepage": "https://github.com/aeesley/mysql-employee-tracker-hw#readme"
+}
