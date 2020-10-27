@@ -20,7 +20,7 @@ connection.connect(function(err) {
     connection.end();
   });
 
-// Inquirer function to start initial questions
+Inquirer function to start initial questions
 function startQuestions(){
     inquirer.prompt({
         message: "What would you like to do?",
@@ -39,9 +39,14 @@ function startQuestions(){
 }
 
 function viewAllEmployees(){
-    
+    console.log("Selecting all employees...\n");
+    connection.query("SELECT * FROM employee", function(err, res) {
+      if (err) throw err;
+      // Log all results of the SELECT statement
+      console.log(res);
+      connection.end();
+    });
 }
-
 
 // starting whole program
 startQuestions();
