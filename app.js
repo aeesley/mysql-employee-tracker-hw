@@ -1,12 +1,14 @@
 const inquirer = require("inquirer");
-var mysql = require("mysql");
+const mysql = require("mysql");
+const fs = require("fs");
+const express = require("express");
 
 var connection = mysql.createConnection({
   host: "localhost",
-  port: 2206,
+  port: 3306,
   user: "root",
-  password: "",
-  database: "employeeDb"
+  password: "password",
+  database: "employee_db"
 });
 
 connection.connect(function(err) {
