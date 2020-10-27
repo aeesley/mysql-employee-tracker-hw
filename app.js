@@ -20,7 +20,7 @@ connection.connect(function(err) {
     connection.end();
   });
 
-Inquirer function to start initial questions
+// Inquirer function to start initial questions
 function startQuestions(){
     inquirer.prompt({
         message: "What would you like to do?",
@@ -34,8 +34,23 @@ function startQuestions(){
                 case "View All Employees":
                     viewAllEmployees()
                     break;
+                case "View All Employees By Department":
+                    viewAllEmployeesByDepartment()
+                    break;
+                case "View All Employees By Manager":
+                    viewAllEmployeesByManager()
+                    break;
+                case "Add Employee":
+                    addEmployee()
+                    break;
+                case "Remove Employee":
+                    removeEmployee()
+                    break;
+                case "Update Employee Role":
+                    updateEmployeeRole()
+                    break;
             }
-    })
+    });
 }
 
 function viewAllEmployees(){
@@ -47,6 +62,78 @@ function viewAllEmployees(){
       connection.end();
     });
 }
+
+function viewAllEmployeesByDepartment() {
+    // Do I need to prompt them to first select the department and then show the employees? Or just showing a table of the departments and employees within?
+}
+
+function viewAllEmployeesByManager(){
+    // Copy by department logic and update here
+}
+
+function addEmployee(){
+    // EXAMPLE FROM CLASS
+    console.log("Inserting a new employee...\n");
+    var query = connection.query(
+      "INSERT INTO employee SET ?",
+      {
+        first_name: "",
+        last_name: "",
+        role_id: "",
+        manager_id: "",
+      },
+      function(err, res) {
+        if (err) throw err;
+        console.log(res); // do this to see all of the data
+        console.log(res.affectedRows + " employee inserted!\n");
+        // Call updateProduct AFTER the INSERT completes
+        updateEmployeeRole(); // NEED TO ADD ANOTHER FUNCTION TO ACTUALLY UPDATE
+      }
+    );
+  
+    // // logs the actual query being run
+    console.log(query.sql);
+}
+
+function removeEmployee(){
+    // EXAMPLE FROM CLASS
+//     console.log("Deleting all strawberry icecream...\n");
+//     connection.query(
+//       "DELETE FROM products WHERE ?",
+//       {
+//         flavor: "strawberry"
+//       },
+//       function(err, res) {
+//         if (err) throw err;
+//         console.log(res.affectedRows + " products deleted!\n");
+//         // Call readProducts AFTER the DELETE completes
+//         readProducts();
+//       }
+//     );
+}
+
+function updateEmployeeRole(){
+    // EXAMPLE FROM CLASS
+    console.log("Updating employee...\n");
+    // var query = connection.query(
+    //   // update products quantity = 100 where favor = "rocky road"
+    //   "UPDATE products SET ? WHERE ?", // these question marks map to the keys below. If you have multiple they need to be within an array
+    //   [
+    //     {
+    //       quantity: 100
+    //     },
+    //     {
+    //       flavor: "Rocky Road"
+    //     }
+    //   ],
+    //   function(err, res) {
+    //     if (err) throw err;
+    //     console.log(res.affectedRows + " products updated!\n");
+    //     // Call deleteProduct AFTER the UPDATE completes
+    //     deleteProduct();
+    //   }
+    // );
+};
 
 // starting whole program
 startQuestions();

@@ -11,13 +11,13 @@ CREATE TABLE employee (
   first_name VARCHAR(30) NULL,
   last_name VARCHAR(30) NULL,
   role_id INT(10),
-  manager_id INT(10) NULL,
+  manager_id INT(10) NULL
 );
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Alex', 'Eesley', '1', '3')
-INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Heather', 'Arnold', '2', '3')
-INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Caitlin', 'Murphy', '3', '5')
-INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Karen', 'Sopron', '4', '5')
+INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Alex', 'Eesley', '1', '3');
+INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Heather', 'Arnold', '2', '3');
+INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Caitlin', 'Murphy', '3', '5');
+INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Karen', 'Sopron', '4', '5');
 
 /* role table*/
 CREATE TABLE role (
@@ -25,11 +25,11 @@ CREATE TABLE role (
   title VARCHAR(255) NULL,
   salary VARCHAR(255) NULL,
   department_id INT(100),
-  manager_id INT(100 NULL),
+  manager_id INT(100) NULL
 );
 
 /* department table table*/
 CREATE TABLE department (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  department_name VARCHAR(30) NULL,
+  department_name VARCHAR(30) NULL
 );
