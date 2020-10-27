@@ -14,6 +14,11 @@ CREATE TABLE employee (
   manager_id INT(10) NULL,
 );
 
+INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Alex', 'Eesley', '1', '3')
+INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Heather', 'Arnold', '2', '3')
+INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Caitlin', 'Murphy', '3', '5')
+INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Karen', 'Sopron', '4', '5')
+
 /* role table*/
 CREATE TABLE role (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
