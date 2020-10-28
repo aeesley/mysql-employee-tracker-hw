@@ -217,7 +217,7 @@ function updateEmployeeRole(){
 };
 
 function quitProgram(){
-
+    connection.end();
 }
 
 // starting whole program
