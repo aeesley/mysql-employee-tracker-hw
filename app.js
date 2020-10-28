@@ -161,22 +161,29 @@ function addDepartment() {
         })
     })
 }
-
+// Referenced this remove employee section of this github repo to work through this code: https://github.com/omerkatan1/MySQL-Employee-Tracker
 function removeEmployee(){
-    // EXAMPLE FROM CLASS
-//     console.log("Deleting all strawberry icecream...\n");
-//     connection.query(
-//       "DELETE FROM products WHERE ?",
-//       {
-//         flavor: "strawberry"
-//       },
-//       function(err, res) {
-//         if (err) throw err;
-//         console.log(res.affectedRows + " products deleted!\n");
-//         // Call readProducts AFTER the DELETE completes
-//         readProducts();
-//       }
-//     );
+
+    inquirer.prompt([
+        {
+            name: "firstName",
+            type: "input",
+            message: "What is the employee's first name that you would like to delete?"
+        },
+        {
+            name: "lastName",
+            type: "input",
+            message: "What is the employee's last name that you would like to delete?"
+        },
+    ]).then(answers => {
+        console.log("did we enter an employee to delete????", answers)
+    connection.query("DELETE FROM employee WHERE first_name = ? and last_name = ?", [answers.firstName, answers.lastName], function (err) {
+        console.log(err);
+
+        console.log(`\n ${answers.firstName} ${answers.lastName} has been deleted from the database! \n`)
+    })
+
+    });
 }
 
 function updateEmployeeRole(){
