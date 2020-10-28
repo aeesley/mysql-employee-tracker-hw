@@ -84,27 +84,35 @@ function viewAllEmployeesByManager(){
 }
 
 function addEmployee(){
-    // EXAMPLE FROM CLASS
-    // console.log("Inserting a new employee...\n");
-    // var query = connection.query(
-    //   "INSERT INTO employee SET ?",
-    //   {
-    //     first_name: "",
-    //     last_name: "",
-    //     role_id: "",
-    //     manager_id: "",
-    //   },
-    //   function(err, res) {
-    //     if (err) throw err;
-    //     console.log(res); // do this to see all of the data
-    //     console.log(res.affectedRows + " employee inserted!\n");
-    //     // Call updateProduct AFTER the INSERT completes
-    //     updateEmployeeRole(); // NEED TO ADD ANOTHER FUNCTION TO ACTUALLY UPDATE
-    //   }
-    // );
-  
-    // // logs the actual query being run
-    console.log(query.sql);
+    console.log('time to add an employee!!')
+    inquirer.prompt([
+        {
+            message: "What is the employee's first name?",
+            type: "input",
+            name: "first_name"
+        },
+        {
+            message: "What is the employee's last name?",
+            type: "input",
+            name: "last_name" 
+        },
+        {
+            message: "Please enter a role ID for this employee:",
+            type: "number",
+            name: "role_id" 
+        },
+        {
+            message: "Please enter a manager ID for this employee if applicable:",
+            type: "number",
+            name: "manager_id" 
+        },
+    ]).then(answers => {
+        console.log("Did we add a new employee??", answers);
+
+        connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) values (?, ?, ?, ?)", [answers.first_name, answers.last_name, answers.role_id, answers.manager_id], function(err, res) {
+            console.log('err , res ?? did we add a new employee??!!', err, res)
+        })
+    })
 }
 
 function addRole() {
