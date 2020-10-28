@@ -25,7 +25,7 @@ function startQuestions(){
     inquirer.prompt({
         message: "What would you like to do?",
         type: "list",
-        choices: ["View All Employees", "View All Employees By Department", "View All Employees By Manager", "Add Employee", "Add Department", "Remove Employee", "Update Employee Role", "Update Employee Manager", "QUIT PROGRAM"],
+        choices: ["View All Employees", "View All Employees By Department", "View All Employees By Manager", "Add Employee", "Add Role", "Add Department", "Remove Employee", "Update Employee Role", "Update Employee Manager", "QUIT PROGRAM"],
         name: "userChoice"
     }).then(answers => {
         console.log(answers.userChoice);
@@ -42,12 +42,16 @@ function startQuestions(){
                 case "View All Employees By Manager":
                     viewAllEmployeesByManager()
                     break;
-                case "Add Department":
-                    addDepartment()
-                    break;
                 case "Add Employee":
                     addEmployee()
                     break;
+                case "Add Role":
+                    addRole()
+                    break;
+                case "Add Department":
+                    addDepartment()
+                    break;
+
                 case "Remove Employee":
                     removeEmployee()
                     break;
@@ -101,6 +105,33 @@ function addEmployee(){
   
     // // logs the actual query being run
     console.log(query.sql);
+}
+
+function addRole() {
+    console.log('time to add a role')
+    inquirer.prompt([
+        {
+            message: "What type of role would you like to add?",
+            type: "input",
+            name: "newRole"
+        },
+        {
+            message: "Please enter a salary for your role:",
+            type: "number",
+            name: "salary" 
+        },
+        {
+            message: "Please enter a department ID for this role:",
+            type: "number",
+            name: "department_id" 
+        },
+    ]).then(answers => {
+        console.log("Did we add a new role?", answers);
+
+        connection.query("INSERT INTO role (title, salary, department_id) values (?, ?, ?)", [answers.title, answers.salary, answers.department_id], function(err, res) {
+            console.log('err , res ?? did we make a new dept!!!', err, res)
+        })
+    })
 }
 
 function addDepartment() {
