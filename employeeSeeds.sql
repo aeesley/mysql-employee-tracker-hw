@@ -36,13 +36,3 @@ CREATE TABLE department (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   department_name VARCHAR(30) NULL
 );
-
-CREATE TABLE Orders (
-    OrderID int NOT NULL,
-    OrderNumber int NOT NULL,
-    PersonID int,
-    PRIMARY KEY (OrderID),
-    FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
-);
-
-INSERT INTO department (deptart) values ('Engineering');

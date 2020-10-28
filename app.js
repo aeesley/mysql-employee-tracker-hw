@@ -25,7 +25,7 @@ function startQuestions(){
     inquirer.prompt({
         message: "What would you like to do?",
         type: "list",
-        choices: ["View All Employees", "View All Employees By Department", "View All Employees By Manager", "Add Employee", "Add Role", "Add Department", "Remove Employee", "Update Employee Role", "Update Employee Manager", "QUIT PROGRAM"],
+        choices: ["View Employees", "View Departments", "View Roles", "Add Employee", "Add Role", "Add Department", "Remove Employee", "Update Employee Role", "Update Employee Manager", "QUIT PROGRAM"],
         name: "userChoice"
     }).then(answers => {
         console.log(answers.userChoice);
@@ -34,13 +34,13 @@ function startQuestions(){
             switch (answers.userChoice) {
 
                 case "View All Employees":
-                    viewAllEmployees()
+                    viewEmployees()
                     break;
-                case "View All Employees By Department":
-                    viewAllEmployeesByDepartment()
+                case "View Departments":
+                    viewDepartments()
                     break;
-                case "View All Employees By Manager":
-                    viewAllEmployeesByManager()
+                case "View Roles":
+                    viewRoles()
                     break;
                 case "Add Employee":
                     addEmployee()
@@ -64,7 +64,7 @@ function startQuestions(){
 
 
 
-function viewAllEmployees(){
+function viewEmployees(){
     console.log("Selecting all employees...\n");
     connection.query("SELECT * FROM employee", function(err, res) {
         console.table(' inside seclt *!!!',res);
@@ -75,11 +75,13 @@ function viewAllEmployees(){
     });
 }
 
-function viewAllEmployeesByDepartment() {
-    // Do I need to prompt them to first select the department and then show the employees? Or just showing a table of the departments and employees within?
+function viewDepartments() {
+    connection.query("SELECT * FROM department", function(err, res){
+        console.table(res);
+    })
 }
 
-function viewAllEmployeesByManager(){
+function viewRoles(){
     // Copy by department logic and update here
 }
 
