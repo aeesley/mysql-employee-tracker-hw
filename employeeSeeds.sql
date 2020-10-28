@@ -5,6 +5,7 @@ CREATE DATABASE employee_db;
 /* designating which database to use*/
 USE employee_db;
 
+
 /* employee table*/
 CREATE TABLE employee (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -12,6 +13,8 @@ CREATE TABLE employee (
   last_name VARCHAR(30) NULL,
   role_id INT(10),
   manager_id INT(10) NULL
+  FOREIGN KEY (role_id) REFERENCES role(id)
+  FOREIGN KEY (manager_id) REFERENCES employee(id)
 );
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id) values ('Alex', 'Eesley', '1', '3');
@@ -25,7 +28,7 @@ CREATE TABLE role (
   title VARCHAR(255) NULL,
   salary VARCHAR(255) NULL,
   department_id INT(100),
-  manager_id INT(100) NULL
+  FOREIGN KEY (department_id) REFERENCES department(id)
 );
 
 /* department table table*/
@@ -33,3 +36,13 @@ CREATE TABLE department (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   department_name VARCHAR(30) NULL
 );
+
+CREATE TABLE Orders (
+    OrderID int NOT NULL,
+    OrderNumber int NOT NULL,
+    PersonID int,
+    PRIMARY KEY (OrderID),
+    FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
+);
+
+INSERT INTO department (deptart) values ('Engineering');

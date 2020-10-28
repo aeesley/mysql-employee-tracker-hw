@@ -16,8 +16,8 @@ var connection = mysql.createConnection({
 // mysql callback function
 connection.connect(function(err) {
     if (err) throw err;
-    console.log("connected as id " + connection.threadId);
-    connection.end();
+    //console.log("connected as id " + connection.threadId);
+    //connection.end();
   });
 
 // Inquirer function to start initial questions
@@ -25,12 +25,14 @@ function startQuestions(){
     inquirer.prompt({
         message: "What would you like to do?",
         type: "list",
-        choices: ["View All Employees", "View All Employees By Department", "View All Employees By Manager", "Add Employee", "Remove Employee", "Update Employee Role", "Update Employee Manager", "QUIT PROGRAM"],
+        choices: ["View All Employees", "View All Employees By Department", "View All Employees By Manager", "Add Employee", "Add Department", "Remove Employee", "Update Employee Role", "Update Employee Manager", "QUIT PROGRAM"],
         name: "userChoice"
     }).then(answers => {
         console.log(answers.userChoice);
         // adding switch statement logic that will run different functions based on user selection
-            switch (answers.choice) {
+        
+            switch (answers.userChoice) {
+
                 case "View All Employees":
                     viewAllEmployees()
                     break;
@@ -39,6 +41,9 @@ function startQuestions(){
                     break;
                 case "View All Employees By Manager":
                     viewAllEmployeesByManager()
+                    break;
+                case "Add Department":
+                    addDepartment()
                     break;
                 case "Add Employee":
                     addEmployee()
@@ -53,13 +58,16 @@ function startQuestions(){
     });
 }
 
+
+
 function viewAllEmployees(){
     console.log("Selecting all employees...\n");
     connection.query("SELECT * FROM employee", function(err, res) {
-      if (err) throw err;
+        console.table(' inside seclt *!!!',res);
+        if (err) throw err;
       // Log all results of the SELECT statement
-      console.log(res);
-      connection.end();
+ 
+      //connection.end();
     });
 }
 
@@ -73,26 +81,40 @@ function viewAllEmployeesByManager(){
 
 function addEmployee(){
     // EXAMPLE FROM CLASS
-    console.log("Inserting a new employee...\n");
-    var query = connection.query(
-      "INSERT INTO employee SET ?",
-      {
-        first_name: "",
-        last_name: "",
-        role_id: "",
-        manager_id: "",
-      },
-      function(err, res) {
-        if (err) throw err;
-        console.log(res); // do this to see all of the data
-        console.log(res.affectedRows + " employee inserted!\n");
-        // Call updateProduct AFTER the INSERT completes
-        updateEmployeeRole(); // NEED TO ADD ANOTHER FUNCTION TO ACTUALLY UPDATE
-      }
-    );
+    // console.log("Inserting a new employee...\n");
+    // var query = connection.query(
+    //   "INSERT INTO employee SET ?",
+    //   {
+    //     first_name: "",
+    //     last_name: "",
+    //     role_id: "",
+    //     manager_id: "",
+    //   },
+    //   function(err, res) {
+    //     if (err) throw err;
+    //     console.log(res); // do this to see all of the data
+    //     console.log(res.affectedRows + " employee inserted!\n");
+    //     // Call updateProduct AFTER the INSERT completes
+    //     updateEmployeeRole(); // NEED TO ADD ANOTHER FUNCTION TO ACTUALLY UPDATE
+    //   }
+    // );
   
     // // logs the actual query being run
     console.log(query.sql);
+}
+
+function addDepartment() {
+    console.log('time to add dpet!!')
+    inquirer.prompt({
+        message: "What department would you like to add?",
+        type: "input",
+        name: "newDepartment"
+    }).then(answers => {
+        console.log("Did adding new dept work?", answers);
+        connection.query("INSERT INTO department (department_name) values (?)", [answers.newDepartment], function(err, res) {
+            console.log('err , res ?? did we make a new dept!!!', err, res)
+        })
+    })
 }
 
 function removeEmployee(){
@@ -115,6 +137,44 @@ function removeEmployee(){
 function updateEmployeeRole(){
     // EXAMPLE FROM CLASS
     console.log("Updating employee...\n");
+
+
+    // SELECT * from roles so that u have all the rolls to ask with in the prompt
+    connection.query('SELECT * FROM role', function(err, roleResults){
+
+        
+        connection.query('SELECT * FROM emplyoee', function(err, empResults){ 
+
+
+
+
+
+        // you do inquiere pormpt and choies ar the roles
+
+
+        
+
+        // .then() of the prompt
+            // do annother connection.query() and o the update
+
+
+        })
+
+        
+
+
+
+
+
+    })
+
+        // then do a prompt and the hcoices are all the roles you just got from select * roles
+
+
+
+
+
+
     // var query = connection.query(
     //   // update products quantity = 100 where favor = "rocky road"
     //   "UPDATE products SET ? WHERE ?", // these question marks map to the keys below. If you have multiple they need to be within an array
