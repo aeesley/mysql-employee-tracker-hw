@@ -25,7 +25,7 @@ function startQuestions(){
     inquirer.prompt({
         message: "What would you like to do?",
         type: "list",
-        choices: ["View Employees", "View Departments", "View Roles", "Add Employee", "Add Role", "Add Department", "Remove Employee", "Update Employee Role", "Update Employee Manager", "QUIT PROGRAM"],
+        choices: ["QUIT PROGRAM", "View Employees", "View Departments", "View Roles", "Add Employee", "Add Role", "Add Department", "Remove Employee", "Update Employee Role", "Update Employee Manager"],
         name: "userChoice"
     }).then(answers => {
         console.log(answers.userChoice);
@@ -33,6 +33,9 @@ function startQuestions(){
         
             switch (answers.userChoice) {
 
+                case "QUIT PROGRAM":
+                    quitProgram()
+                    break;
                 case "View All Employees":
                     viewEmployees()
                     break;
@@ -68,18 +71,22 @@ function viewEmployees(){
     connection.query("SELECT * FROM employee", function(err, res) {
         console.table(res);
         console.log(err);
+        startQuestions();
     });
 }
 
 function viewDepartments() {
     connection.query("SELECT * FROM department", function(err, res){
         console.table(res);
+        startQuestions();
     })
+
 }
 
 function viewRoles(){
     connection.query("SELECT * FROM role", function(err, res){
         console.table(res);
+        startQuestions();
     })
 }
 
@@ -113,6 +120,7 @@ function addEmployee(){
         // adding mysql syntax to insert the new employee per the user input to the employee table
         connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) values (?, ?, ?, ?)", [answers.first_name, answers.last_name, answers.role_id, answers.manager_id], function(err, res) {
             console.log('err , res ?? did we add a new employee??!!', err, res)
+        startQuestions();
         })
     })
 }
@@ -158,12 +166,13 @@ function addDepartment() {
         // using mysql syntax to insert new department designated by user to department tables
         connection.query("INSERT INTO department (department_name) values (?)", [answers.newDepartment], function(err, res) {
             console.log('err , res ?? did we make a new dept!!!', err, res)
+        startQuestions();
         })
     })
 }
 // Referenced this remove employee section of this github repo to work through this code: https://github.com/omerkatan1/MySQL-Employee-Tracker
 function removeEmployee(){
-
+    // using inquirer to ask the user which employee they would like to delete
     inquirer.prompt([
         {
             name: "firstName",
@@ -177,10 +186,12 @@ function removeEmployee(){
         },
     ]).then(answers => {
         console.log("did we enter an employee to delete????", answers)
+        // adding the mysql syntax to actually delete the identified employee from the database
     connection.query("DELETE FROM employee WHERE first_name = ? and last_name = ?", [answers.firstName, answers.lastName], function (err) {
         console.log(err);
 
         console.log(`\n ${answers.firstName} ${answers.lastName} has been deleted from the database! \n`)
+        startQuestions();
     })
 
     });
@@ -194,58 +205,20 @@ function updateEmployeeRole(){
     // SELECT * from roles so that u have all the rolls to ask with in the prompt
     connection.query('SELECT * FROM role', function(err, roleResults){
 
-        
         connection.query('SELECT * FROM emplyoee', function(err, empResults){ 
-
-
-
-
 
         // you do inquiere pormpt and choies ar the roles
 
-
-        
-
         // .then() of the prompt
             // do annother connection.query() and o the update
-
-
+        startQuestions();
         })
-
-        
-
-
-
-
-
     })
-
-        // then do a prompt and the hcoices are all the roles you just got from select * roles
-
-
-
-
-
-
-    // var query = connection.query(
-    //   // update products quantity = 100 where favor = "rocky road"
-    //   "UPDATE products SET ? WHERE ?", // these question marks map to the keys below. If you have multiple they need to be within an array
-    //   [
-    //     {
-    //       quantity: 100
-    //     },
-    //     {
-    //       flavor: "Rocky Road"
-    //     }
-    //   ],
-    //   function(err, res) {
-    //     if (err) throw err;
-    //     console.log(res.affectedRows + " products updated!\n");
-    //     // Call deleteProduct AFTER the UPDATE completes
-    //     deleteProduct();
-    //   }
-    // );
 };
+
+function quitProgram(){
+
+}
 
 // starting whole program
 startQuestions();
