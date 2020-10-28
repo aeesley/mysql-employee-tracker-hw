@@ -63,15 +63,11 @@ function startQuestions(){
 }
 
 
-
+// NOTHING SHOWING UP HERE!!!
 function viewEmployees(){
-    console.log("Selecting all employees...\n");
     connection.query("SELECT * FROM employee", function(err, res) {
-        console.table(' inside seclt *!!!',res);
-        if (err) throw err;
-      // Log all results of the SELECT statement
- 
-      //connection.end();
+        console.table(res);
+        console.log(err);
     });
 }
 
@@ -82,7 +78,9 @@ function viewDepartments() {
 }
 
 function viewRoles(){
-    // Copy by department logic and update here
+    connection.query("SELECT * FROM role", function(err, res){
+        console.table(res);
+    })
 }
 
 // Function to add employee
