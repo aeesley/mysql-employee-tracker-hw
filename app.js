@@ -36,7 +36,7 @@ function startQuestions(){
                 case "QUIT PROGRAM":
                     quitProgram()
                     break;
-                case "View All Employees":
+                case "View Employees":
                     viewEmployees()
                     break;
                 case "View Departments":
@@ -54,7 +54,6 @@ function startQuestions(){
                 case "Add Department":
                     addDepartment()
                     break;
-
                 case "Remove Employee":
                     removeEmployee()
                     break;
@@ -71,6 +70,10 @@ function viewEmployees(){
     connection.query("SELECT * FROM employee", function(err, res) {
         console.table(res);
         console.log(err);
+
+        // var employeeList = console.table(res);
+        // console.log(employeeList);
+
         startQuestions();
     });
 }
@@ -150,6 +153,7 @@ function addRole() {
         // using mysql syntax to insert new role designated by user input to the role table
         connection.query("INSERT INTO role (title, salary, department_id) values (?, ?, ?)", [answers.title, answers.salary, answers.department_id], function(err, res) {
             console.log('err , res ?? did we make a new dept!!!', err, res)
+        startQuestions();
         })
     })
 }
@@ -197,24 +201,37 @@ function removeEmployee(){
     });
 }
 
-function updateEmployeeRole(){
-    // EXAMPLE FROM CLASS
-    console.log("Updating employee...\n");
+// function updateEmployeeRole(){
+//     console.log("Updating employee...\n");
+
+//     // START OF OTHER CODE
+
+//     inquirer.prompt({
+//         {
+//             message: "Which employee's role would you like to update?",
+//             name: "selectedEmployeeRole",
+//             type: "list",
+//             choices: 
+//         }
+//     })
+
+// }
 
 
-    // SELECT * from roles so that u have all the rolls to ask with in the prompt
-    connection.query('SELECT * FROM role', function(err, roleResults){
+    // TOMS PSEUDO CODE
+    // // SELECT * from roles so that u have all the rolls to ask with in the prompt
+    // connection.query('SELECT * FROM role', function(err, roleResults){
 
-        connection.query('SELECT * FROM emplyoee', function(err, empResults){ 
+    //     connection.query('SELECT * FROM emplyoee', function(err, empResults){ 
 
-        // you do inquiere pormpt and choies ar the roles
+    //     // you do inquiere pormpt and choies ar the roles
 
-        // .then() of the prompt
-            // do annother connection.query() and o the update
-        startQuestions();
-        })
-    })
-};
+    //     // .then() of the prompt
+    //         // do annother connection.query() and o the update
+    //     startQuestions();
+    //     })
+    // })
+// };
 
 function quitProgram(){
     connection.end();
