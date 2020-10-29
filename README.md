@@ -34,7 +34,7 @@ Javascript, jQuery, Node.js, MySQL, Inquirer
 
 # schema
 
-![](schema_screenshot/png)
+![schema](./schema_screenshot/png)
 
 # author
 
