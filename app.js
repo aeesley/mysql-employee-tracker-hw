@@ -65,19 +65,16 @@ function startQuestions(){
 }
 
 
-// NOTHING SHOWING UP HERE!!!
+// Function to view all employees
 function viewEmployees(){
     connection.query("SELECT * FROM employee", function(err, res) {
         console.table(res);
         console.log(err);
-
-        // var employeeList = console.table(res);
-        // console.log(employeeList);
-
         startQuestions();
     });
 }
 
+// Function to view all departments
 function viewDepartments() {
     connection.query("SELECT * FROM department", function(err, res){
         console.table(res);
@@ -86,6 +83,7 @@ function viewDepartments() {
 
 }
 
+// Function to view all roles
 function viewRoles(){
     connection.query("SELECT * FROM role", function(err, res){
         console.table(res);
@@ -201,19 +199,28 @@ function removeEmployee(){
     });
 }
 
-// function updateEmployeeRole(){
+
+
+// function updateEmployeeRole(employeeList){
 //     console.log("Updating employee...\n");
 
 //     // START OF OTHER CODE
 
-//     inquirer.prompt({
+//     inquirer.prompt([
 //         {
 //             message: "Which employee's role would you like to update?",
 //             name: "selectedEmployeeRole",
 //             type: "list",
-//             choices: 
+//             choices: "test"
+//         },
+//         {
+//             message: "Please enter their updated role:",
+//             name: "newSelectedRole",
+//             type: ["input"]
 //         }
-//     })
+//     ]).then(answers => {
+//         console.log("Here are our annnnswers", answers);
+//     });
 
 // }
 
