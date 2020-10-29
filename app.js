@@ -3,6 +3,7 @@ const mysql = require('mysql');
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 const fs = require('fs');
+const { get } = require('https');
 
 // Creating the mysql connection
 var connection = mysql.createConnection({
@@ -199,30 +200,45 @@ function removeEmployee(){
     });
 }
 
+function getEmployeeList(){
+    return connection.query("SELECT * FROM employee", function(err, res) {
+        const employeeList = res.map(record => {
+            return `${record.id} - ${record.first_name} ${record.last_name}`
+        });
+        console.log(employeeList)
+        return employeeList;
+    });
+}
 
 
-// function updateEmployeeRole(employeeList){
-//     console.log("Updating employee...\n");
+function updateEmployeeRole(){
+    const employeeList = getEmployeeList();
+    console.log("Updating employee...\n");
 
-//     // START OF OTHER CODE
+    // START OF OTHER CODE
 
-//     inquirer.prompt([
-//         {
-//             message: "Which employee's role would you like to update?",
-//             name: "selectedEmployeeRole",
-//             type: "list",
-//             choices: "test"
-//         },
-//         {
-//             message: "Please enter their updated role:",
-//             name: "newSelectedRole",
-//             type: ["input"]
-//         }
-//     ]).then(answers => {
-//         console.log("Here are our annnnswers", answers);
-//     });
+    inquirer.prompt([
+        {
+            message: "Which employee's role would you like to update?",
+            name: "selectedEmployeeRole",
+            type: "list",
+            choices: employeeList
+        }, // 3 - Karen Sopron
+        {
+            message: "Please enter their updated role:",
+            name: "newSelectedRole",
+            type: ["input"]
+        }
+    ]).then(answers => {
+        console.log("Here are our annnnswers", answers);
+        // answers.selectedEmployeeRole = 3 - Karen Sopron   // answers.selectedEmployeeRole.split(' - ')[0]
+        // update employee where id = 3 set values()
+        //split it into first_name = Karen , last_name = Sopron
+        //need to do the update query
+            //break the full name chosen into first and last  WHERE first_name = "Karen" and last_name = "Sopron"
+    });
 
-// }
+}
 
 
     // TOMS PSEUDO CODE
