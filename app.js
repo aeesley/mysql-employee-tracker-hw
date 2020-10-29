@@ -133,7 +133,7 @@ function addRole() {
         {
             message: "What type of role would you like to add?",
             type: "input",
-            name: "newRole"
+            name: "title"
         },
         {
             message: "Please enter a salary for your role:",
