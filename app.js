@@ -18,7 +18,6 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
     if (err) throw err;
     //console.log("connected as id " + connection.threadId);
-    //connection.end();
   });
 
 // Inquirer function to start initial questions
@@ -94,7 +93,6 @@ function viewRoles(){
 
 // Function to add employee
 function addEmployee(){
-    console.log('time to add an employee!!')
     // using inquirer prompt to ask user input questions to store
     inquirer.prompt([
         {
@@ -118,10 +116,8 @@ function addEmployee(){
             name: "manager_id" 
         },
     ]).then(answers => {
-        console.log("Did we add a new employee??", answers);
         // adding mysql syntax to insert the new employee per the user input to the employee table
         connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) values (?, ?, ?, ?)", [answers.first_name, answers.last_name, answers.role_id, answers.manager_id], function(err, res) {
-            console.log('err , res ?? did we add a new employee??!!', err, res)
         startQuestions();
         })
     })
@@ -148,27 +144,22 @@ function addRole() {
             name: "department_id" 
         },
     ]).then(answers => {
-        console.log("Did we add a new role?", answers);
         // using mysql syntax to insert new role designated by user input to the role table
         connection.query("INSERT INTO role (title, salary, department_id) values (?, ?, ?)", [answers.title, answers.salary, answers.department_id], function(err, res) {
-            console.log('err , res ?? did we make a new dept!!!', err, res)
         startQuestions();
         })
     })
 }
 // function to add new department
 function addDepartment() {
-    console.log('time to add dpet!!')
     // using inquirer prompt to ask user input question for new department
     inquirer.prompt({
         message: "What department would you like to add?",
         type: "input",
         name: "newDepartment"
     }).then(answers => {
-        console.log("Did adding new dept work?", answers);
         // using mysql syntax to insert new department designated by user to department tables
         connection.query("INSERT INTO department (department_name) values (?)", [answers.newDepartment], function(err, res) {
-            console.log('err , res ?? did we make a new dept!!!', err, res)
         startQuestions();
         })
     })
@@ -188,7 +179,6 @@ function removeEmployee(){
             message: "What is the employee's last name that you would like to delete?"
         },
     ]).then(answers => {
-        console.log("did we enter an employee to delete????", answers)
         // adding the mysql syntax to actually delete the identified employee from the database
     connection.query("DELETE FROM employee WHERE first_name = ? and last_name = ?", [answers.firstName, answers.lastName], function (err) {
         console.log(err);
@@ -237,7 +227,7 @@ function getEmployeeList(){
 //             //break the full name chosen into first and last  WHERE first_name = "Karen" and last_name = "Sopron"
 //     });
 
-}
+// }
 
 // function to end the program when the user selects quit program
 function quitProgram(){
