@@ -200,6 +200,7 @@ function removeEmployee(){
     });
 }
 
+// creating employee list to use in the update employee role table
 function getEmployeeList(){
     return connection.query("SELECT * FROM employee", function(err, res) {
         const employeeList = res.map(record => {
@@ -210,52 +211,35 @@ function getEmployeeList(){
     });
 }
 
+// This code is not currently working
+// function updateEmployeeRole(){
+//     const employeeList = getEmployeeList();
+//     console.log("Updating employee...\n");
 
-function updateEmployeeRole(){
-    const employeeList = getEmployeeList();
-    console.log("Updating employee...\n");
-
-    // START OF OTHER CODE
-
-    inquirer.prompt([
-        {
-            message: "Which employee's role would you like to update?",
-            name: "selectedEmployeeRole",
-            type: "list",
-            choices: employeeList
-        }, // 3 - Karen Sopron
-        {
-            message: "Please enter their updated role:",
-            name: "newSelectedRole",
-            type: ["input"]
-        }
-    ]).then(answers => {
-        console.log("Here are our annnnswers", answers);
-        // answers.selectedEmployeeRole = 3 - Karen Sopron   // answers.selectedEmployeeRole.split(' - ')[0]
-        // update employee where id = 3 set values()
-        //split it into first_name = Karen , last_name = Sopron
-        //need to do the update query
-            //break the full name chosen into first and last  WHERE first_name = "Karen" and last_name = "Sopron"
-    });
+//     inquirer.prompt([
+//         {
+//             message: "Which employee's role would you like to update?",
+//             name: "selectedEmployeeRole",
+//             type: "list",
+//             choices: employeeList
+//         }, 
+//         {
+//             message: "Please enter their updated role:",
+//             name: "newSelectedRole",
+//             type: ["input"]
+//         }
+//     ]).then(answers => {
+//         console.log("Here are our annnnswers", answers);
+//         // answers.selectedEmployeeRole = 3 - Karen Sopron   // answers.selectedEmployeeRole.split(' - ')[0]
+//         // update employee where id = 3 set values()
+//         //split it into first_name = Karen , last_name = Sopron
+//         //need to do the update query
+//             //break the full name chosen into first and last  WHERE first_name = "Karen" and last_name = "Sopron"
+//     });
 
 }
 
-
-    // TOMS PSEUDO CODE
-    // // SELECT * from roles so that u have all the rolls to ask with in the prompt
-    // connection.query('SELECT * FROM role', function(err, roleResults){
-
-    //     connection.query('SELECT * FROM emplyoee', function(err, empResults){ 
-
-    //     // you do inquiere pormpt and choies ar the roles
-
-    //     // .then() of the prompt
-    //         // do annother connection.query() and o the update
-    //     startQuestions();
-    //     })
-    // })
-// };
-
+// function to end the program when the user selects quit program
 function quitProgram(){
     connection.end();
 }
